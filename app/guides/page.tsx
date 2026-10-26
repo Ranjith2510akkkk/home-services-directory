@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import {ArrowRight,ClipboardCheck,FileText,House} from 'lucide-react';
+import {guides} from '@/lib/guides';
+export const metadata={title:'Homeowner guides'};
+export default function Guides(){const icons=[ClipboardCheck,FileText,House];return <div className="container page-shell"><div className="page-heading"><p className="eyebrow">A LITTLE KNOW-HOW GOES A LONG WAY</p><h1>Feel more at home with your next project.</h1><p>Practical starting points for finding help and planning the conversation.</p></div><div className="notice">Preview editorial content. These general checklists are not expert-reviewed local cost, code, or permit guidance.</div><div className="guide-grid">{guides.map((g,i)=>{const Icon=icons[i];return <article className="guide-card" key={g.slug}><div className={`guide-art ${g.color}`}><Icon/></div><div><p className="eyebrow">{g.category}</p><h2><Link href={`/guides/${g.slug}`}>{g.title}</Link></h2><p>{g.excerpt}</p><Link href={`/guides/${g.slug}`} className="text-link">Read the checklist <ArrowRight size={16}/></Link></div></article>;})}</div></div>;}

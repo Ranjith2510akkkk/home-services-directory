@@ -1,0 +1,6 @@
+import {notFound} from 'next/navigation';
+import Link from 'next/link';
+import {ArrowLeft} from 'lucide-react';
+import {guides} from '@/lib/guides';
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const{slug}=await params;return {title:guides.find(g=>g.slug===slug)?.title||'Guide not found'};}
+export default async function Guide({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const g=guides.find(g=>g.slug===slug);if(!g)notFound();return <article className="container page-shell narrow-shell"><Link className="text-link back-link" href="/guides"><ArrowLeft size={16}/> All guides</Link><div className="page-heading"><p className="eyebrow">{g.category}</p><h1>{g.title}</h1><p>{g.excerpt}</p></div><div className="notice">Development editorial sample · Not yet reviewed by a trade professional · General educational information</div><div className="article-body">{g.sections.map(s=><section key={s.title}><h2>{s.title}</h2><p>{s.text}</p></section>)}<section><h2>Ready to explore your options?</h2><p>Browse profiles by service and city, and save the providers you want to compare.</p><Link className="button" style={{marginTop:20}} href="/explore">Find a professional</Link></section></div></article>;}
